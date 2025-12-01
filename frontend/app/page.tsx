@@ -8,7 +8,7 @@ import { SparklesCore } from "./components/ui/sparkles";
 import { StatefulButton } from "./components/ui/stateful-button";
 import { TextGenerateEffect } from "./components/ui/text-generate-effect";
 
-
+// --- 🔗 YOUR LIVE BACKEND LINK ---
 const BACKEND_URL = "https://prolific-benevolence-production.up.railway.app";
 // --------------------------------
 
@@ -43,6 +43,13 @@ export default function Home() {
     if (e.target.files && e.target.files.length > 0) {
       setFiles(Array.from(e.target.files));
     }
+  };
+
+  // --- HELPER FUNCTION (Fixed) ---
+  const getFileDisplay = () => {
+    if (files.length === 0) return "";
+    if (files.length === 1) return files[0].name.replace(/\.(pdf|png|jpg|jpeg|webp)$/i, "");
+    return `${files.length} files selected`;
   };
 
   // Helper to clean filename for display
