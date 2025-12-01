@@ -8,9 +8,9 @@ import { SparklesCore } from "./components/ui/sparkles";
 import { StatefulButton } from "./components/ui/stateful-button";
 import { TextGenerateEffect } from "./components/ui/text-generate-effect";
 
-// --- 🔗 YOUR LIVE BACKEND LINK ---
+// --- 🔗 YOUR LIVE RAILWAY BACKEND ---
 const BACKEND_URL = "https://prolific-benevolence-production.up.railway.app";
-// --------------------------------
+// ------------------------------------
 
 export default function Home() {
   const [files, setFiles] = useState<File[]>([]); 
@@ -45,7 +45,7 @@ export default function Home() {
     }
   };
 
-  // --- HELPER FUNCTION (Fixed) ---
+  // --- FIXED: ADDED MISSING HELPER FUNCTION ---
   const getFileDisplay = () => {
     if (files.length === 0) return "";
     if (files.length === 1) return files[0].name.replace(/\.(pdf|png|jpg|jpeg|webp)$/i, "");
@@ -322,7 +322,7 @@ export default function Home() {
           </div>
 
           <div className="mb-8 space-y-2">
-            <label className="block text-xs font-bold text-zinc-400 uppercase tracking-widest">5. Instructions / First Question</label>
+            <label className="block text-xs font-bold text-zinc-400 uppercase tracking-widest">5. Custom Instructions</label>
             <textarea
               value={customPrompt}
               onChange={(e) => setCustomPrompt(e.target.value)}
