@@ -322,7 +322,7 @@ export default function Home() {
           </div>
 
           <div className="mb-8 space-y-2">
-            <label className="block text-xs font-bold text-zinc-400 uppercase tracking-widest">5. Custom Instructions</label>
+            <label className="block text-xs font-bold text-zinc-400 uppercase tracking-widest">5. Instructions / First Question</label>
             <textarea
               value={customPrompt}
               onChange={(e) => setCustomPrompt(e.target.value)}
