@@ -3,6 +3,11 @@ uvicorn
 python-multipart
 langchain
 langchain-google-genai
+langchain-community
+faiss-cpu
 pypdf
 python-dotenv
-faiss-cpu
+pillow
+sentence-transformers
+google-generativeai
+protobuf
