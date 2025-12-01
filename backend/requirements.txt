@@ -11,6 +11,5 @@ faiss-cpu
 pypdf
 python-dotenv
 pillow
-sentence-transformers
 google-generativeai
 protobuf
