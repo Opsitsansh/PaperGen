@@ -9,7 +9,7 @@ import { StatefulButton } from "./components/ui/stateful-button";
 import { TextGenerateEffect } from "./components/ui/text-generate-effect";
 
 // --- 🔗 YOUR LIVE RAILWAY BACKEND ---
-const BACKEND_URL = "https://prolific-benevolence-production.up.railway.app";
+const BACKEND_URL = "prolific-benevolence-production.up.railway.app";
 // ------------------------------------
 
 export default function Home() {
