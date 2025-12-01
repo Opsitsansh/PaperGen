@@ -8,10 +8,12 @@ import { SparklesCore } from "./components/ui/sparkles";
 import { StatefulButton } from "./components/ui/stateful-button";
 import { TextGenerateEffect } from "./components/ui/text-generate-effect";
 
+
+const BACKEND_URL = "https://prolific-benevolence-production.up.railway.app";
+// --------------------------------
+
 export default function Home() {
-  // State for Multiple Files
   const [files, setFiles] = useState<File[]>([]); 
-  
   const [mode, setMode] = useState("Generate Notes");
   const [difficulty, setDifficulty] = useState("Easy");
   const [language, setLanguage] = useState("English");
@@ -24,7 +26,7 @@ export default function Home() {
   const [isChatting, setIsChatting] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  const [status, setStatus] = useState("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [view, setView] = useState("landing"); // 'landing' | 'upload' | 'preview'
 
   const documentRef = useRef<HTMLDivElement>(null);
@@ -43,14 +45,13 @@ export default function Home() {
     }
   };
 
-  // Helper to show filename(s)
-  const getFileDisplay = () => {
-    if (files.length === 0) return "";
-    if (files.length === 1) return files[0].name.replace(/\.(pdf|png|jpg|jpeg|webp)$/i, "");
-    return `${files.length} files selected`;
+  // Helper to clean filename for display
+  const cleanFileName = (name: string | undefined) => {
+    if (!name) return "";
+    return name.replace(/\.(pdf|png|jpg|jpeg|webp)$/i, "");
   };
 
-  // --- ROBUST TEXT TO SPEECH ---
+  // --- TEXT TO SPEECH ---
   const handleSpeak = () => {
     if (!generatedContent) {
       alert("There is no text to read yet!");
@@ -121,7 +122,7 @@ export default function Home() {
     formData.append("custom_prompt", customPrompt);
 
     try {
-      const response = await fetch("http://localhost:8000/upload", {
+      const response = await fetch(`${BACKEND_URL}/upload`, {
         method: "POST",
         body: formData,
       });
@@ -171,7 +172,7 @@ export default function Home() {
     formData.append("custom_prompt", fullPrompt);
 
     try {
-        const response = await fetch("http://localhost:8000/upload", {
+        const response = await fetch(`${BACKEND_URL}/upload`, {
             method: "POST",
             body: formData,
         });
