@@ -1,9 +1,9 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import { Download, FileText, ChevronLeft, RotateCcw, Send, User, Bot, Loader2, Volume2, Files } from "lucide-react";
+import { Bot, ChevronLeft, Download, Files, Loader2, RotateCcw, Send, User, Volume2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { SparklesCore } from "./components/ui/sparkles";
 import { StatefulButton } from "./components/ui/stateful-button";
 import { TextGenerateEffect } from "./components/ui/text-generate-effect";
