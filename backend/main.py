@@ -7,14 +7,24 @@ from rag_engine import process_documents
 
 app = FastAPI()
 
-# --- THE FIX: ALLOW ALL ORIGINS (*) ---
+# --- THE FIX: EXPLICITLY ALLOW YOUR VERCEL APP ---
+origins = [
+    "http://localhost:3000",
+    "https://paper-gen-liard.vercel.app",  # <--- Your Website
+    "*"                                    # <--- Everyone else (Backup)
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # <--- This allows Vercel to connect
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/")
+def home():
+    return {"message": "PaperGen Backend is Running!"}
 
 @app.post("/upload")
 async def upload_documents(
