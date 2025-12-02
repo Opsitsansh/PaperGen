@@ -4,7 +4,6 @@ import mimetypes
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-# --- CHANGED: Use Google Embeddings instead of HuggingFace ---
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
@@ -18,7 +17,7 @@ load_dotenv()
 # Gemini 2.0 Flash
 llm = ChatGoogleGenerativeAI(model="models/gemini-2.0-flash")
 
-# --- CHANGED: Lightweight Google Memory (No heavy install) ---
+# Cloud Embeddings (Lightweight)
 embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
 
 def process_documents(file_paths, mode, option, language="English", custom_prompt=""):
@@ -46,7 +45,7 @@ def process_documents(file_paths, mode, option, language="English", custom_promp
             except Exception:
                 continue
 
-    # --- MULTIMODAL MODE (Images) ---
+    # --- MULTIMODAL MODE ---
     if image_parts:
         base_prompt = f"Analyze these files. Answer in {language}. Mode: {mode}. Option: {option}."
         if custom_prompt: base_prompt += f"\nUser Instructions: {custom_prompt}"
@@ -59,7 +58,6 @@ def process_documents(file_paths, mode, option, language="English", custom_promp
     # --- TEXT MODE ---
     if mode == "Generate Notes":
         truncated_text = combined_text[:800000] 
-        
         prompt_template = f"""
         You are an expert Academic Professor.
         TASK: Create comprehensive study notes.

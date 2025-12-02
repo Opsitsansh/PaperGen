@@ -6,9 +6,10 @@ langchain-community==0.2.16
 langchain-core==0.2.38
 langchain-google-genai==1.0.10
 langchain-text-splitters==0.2.4
+langgraph
 faiss-cpu
 pypdf
 python-dotenv
 pillow
 google-generativeai
-protobuf==4.25.3
+protobuf

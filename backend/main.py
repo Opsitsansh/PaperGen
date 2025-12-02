@@ -7,13 +7,7 @@ from rag_engine import process_documents
 
 app = FastAPI()
 
-# --- THE FIX: EXPLICITLY ALLOW YOUR VERCEL APP ---
-origins = [
-    "http://localhost:3000",
-    "https://paper-gen-liard.vercel.app",  # <--- Your Website
-    "*"                                    # <--- Everyone else (Backup)
-]
-
+# ALLOW ALL ORIGINS (Fixes CORS issues)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -21,10 +15,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.get("/")
-def home():
-    return {"message": "PaperGen Backend is Running!"}
 
 @app.post("/upload")
 async def upload_documents(
@@ -36,26 +26,24 @@ async def upload_documents(
 ):
     saved_file_paths = []
     
-    # Save ALL files
-    for file in files:
-        file_location = f"temp_{file.filename}"
-        with open(file_location, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
-        saved_file_paths.append(file_location)
-    
     try:
-        # Send LIST of paths to brain
+        # Save ALL files locally
+        for file in files:
+            file_location = f"temp_{file.filename}"
+            with open(file_location, "wb") as buffer:
+                shutil.copyfileobj(file.file, buffer)
+            saved_file_paths.append(file_location)
+        
+        # Send to Brain
         ai_response = process_documents(saved_file_paths, mode, option, language, custom_prompt)
         
-        # Cleanup
-        for path in saved_file_paths:
-            if os.path.exists(path):
-                os.remove(path)
-                
         return {"result": ai_response}
+        
     except Exception as e:
-        # Cleanup on error
+        return {"result": f"Error: {str(e)}"}
+        
+    finally:
+        # Cleanup (Delete temp files)
         for path in saved_file_paths:
             if os.path.exists(path):
                 os.remove(path)
-        return {"result": f"Error: {str(e)}"}
