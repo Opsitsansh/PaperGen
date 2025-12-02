@@ -9,7 +9,7 @@ import { StatefulButton } from "./components/ui/stateful-button";
 import { TextGenerateEffect } from "./components/ui/text-generate-effect";
 
 // --- 👇 UPDATE THIS AFTER DEPLOYING RAILWAY 👇 ---
-const BACKEND_URL = "http://localhost:8000"; 
+const BACKEND_URL = "https://papergen-production.up.railway.app/"; 
 // -----------------------------------------------
 
 export default function Home() {
