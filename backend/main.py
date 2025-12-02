@@ -1,18 +1,16 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
-import shutil
-from fastapi import FastAPI, UploadFile, File, Form
-from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 import shutil
 import os
-from rag_engine import process_documents # Note the 's'
+from rag_engine import process_documents 
 
 app = FastAPI()
 
+# --- THE FIX: ALLOW ALL ORIGINS (*) ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # <--- This allows Vercel to connect
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -20,7 +18,7 @@ app.add_middleware(
 
 @app.post("/upload")
 async def upload_documents(
-    files: List[UploadFile] = File(...), # <--- LIST OF FILES
+    files: List[UploadFile] = File(...), 
     mode: str = Form(...),
     option: str = Form(...),
     language: str = Form("English"),
